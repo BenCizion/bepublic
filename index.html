@@ -97,58 +97,35 @@
   
             <!-- 차트 섹션 -->
             <section class="chart-section">
-                <h2 class="chart-title">
-                    <div class="chart-title-icon">
-                        <img src="https://bencizion.github.io/bepublic/img/title_icon1.svg" alt="그래프 아이콘">
-                    </div>
-                    투표 결과 그래프
-                </h2>
-                <div class="chart-container">
-                    <div class="actual-chart">
-                        <!-- Y축 레이블 -->
-                        <div class="chart-y-axis">
-                            <div class="chart-y-label">50%</div>
-                            <div class="chart-y-label">40%</div>
-                            <div class="chart-y-label">30%</div>
-                            <div class="chart-y-label">20%</div>
-                            <div class="chart-y-label">10%</div>
-                            <div class="chart-y-label">0%</div>
-                        </div>
-  
-                        <!-- X축 레이블 -->
-                        <div class="chart-x-axis">
-                            <div>Mar</div>
-                            <div>Apr</div>
-                            <div>May</div>
-                        </div>
-  
-                        <!-- 그리드 라인 -->
-                        <div class="chart-grid">
-                            <div class="grid-line" style="top: 0%;"></div>
-                            <div class="grid-line" style="top: 20%;"></div>
-                            <div class="grid-line" style="top: 40%;"></div>
-                            <div class="grid-line" style="top: 60%;"></div>
-                            <div class="grid-line" style="top: 80%;"></div>
-                            <div class="grid-line" style="top: 100%;"></div>
-                        </div>
-  
-                        <!-- 수직 그리드 라인 -->
-                        <div class="grid-line-vertical" style="left: 33%;"></div>
-                        <div class="grid-line-vertical" style="left: 66%;"></div>
-  
-                        <!-- 타임라인 레이블 -->
-                        <div class="timeline-label">3월 4주차</div>
-  
-                        <!-- 차트 라인들 -->
-                        <div class="chart-content">
-                            <div class="chart-line line-blue"></div>
-                            <div class="chart-line line-red"></div>
-                            <div class="chart-line line-purple"></div>
-                            <div class="chart-line line-green"></div>
-                            <div class="chart-line line-gray"></div>
-                        </div>
-                    </div>
-                </div>
+            <h2 class="chart-title">
+              
+            <div class="chart-title-icon">
+            <img src="https://bencizion.github.io/bepublic/img/title_icon1.svg" alt="그래프 아이콘">
+            </div>
+            투표 결과 그래프
+            </h2>
+              
+        <div class="chart-container">
+        <!-- Datawrapper 차트 삽입 -->
+        <iframe title="날짜별 투표율 변화" aria-label="Interactive line chart" id="datawrapper-chart-DGKmf" src="https://datawrapper.dwcdn.net/DGKmf/5/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="400" data-external="1"></iframe>
+            <script type="text/javascript">
+            !function(){
+                "use strict";
+                window.addEventListener("message", function(a){
+                    if(void 0 !== a.data["datawrapper-height"]){
+                        var e = document.querySelectorAll("iframe");
+                        for(var t in a.data["datawrapper-height"])
+                            for(var r, i = 0; r = e[i]; i++)
+                                if(r.contentWindow === a.source){
+                                    var d = a.data["datawrapper-height"][t] + "px";
+                                    r.style.height = d;
+                                }
+                    }
+                })
+            }();
+            </script>
+          </div>
+          
                 <!-- 범례 -->
                 <div class="legend">
                     <div class="legend-items">
