@@ -631,20 +631,45 @@ body {
   }
 }
 
+/* 푸터 및 모달 */
+.custom-footer {
+  background-color: #F3BA2F;
+  color: #4D4D4D;
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.custom-footer a {
+  color: #4D4D4D;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.footer-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.footer-info,
+.footer-links,
+.footer-copy {
+  margin-bottom: 0.5rem;
+}
+
+/* 모달 공통 */
 .modal {
-  display: none; 
+  display: none;
   position: fixed;
   z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.5);
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: white;
   margin: 5% auto;
   padding: 1rem;
   border-radius: 12px;
@@ -660,10 +685,8 @@ body {
   top: 1rem;
   font-size: 24px;
   font-weight: bold;
+  color: #333;
   cursor: pointer;
 }
 
-.footer-links a {
-  cursor: pointer;
-}
 
