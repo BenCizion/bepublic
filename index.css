@@ -430,8 +430,8 @@ body {
 }
 
 .legend {
-  margin-top: 40px;
-  padding: 24px;
+  margin-top: 0px;
+  padding: 12px;
   background-color: var(--light-gray);
   border-radius: 12px;
 }
