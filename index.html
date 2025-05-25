@@ -63,7 +63,7 @@
                             <span>비퍼블릭 운영팀</span>
                         </div>
                         <div class="share">
-                          <img id="share-btn" src="https://bencizion.github.io/bepublic/img/share.svg" alt="">
+                          <img id="share-buttonn" src="https://bencizion.github.io/bepublic/img/share.svg" style="cursor: pointer;" alt="공유하기">
                         </div>
                     </div>
                 </div>
@@ -235,24 +235,13 @@
             });
         });
   
-        // 공유하기 기능 (제목 옆 이미지 및 메타 섹션 버튼)
-        <!-- 복사 완료 메시지 -->
-        <div id="copied-msg">📋 주소가 복사되었습니다!</div>
-
-        document.getElementById('share-btn').addEventListener('click', function () {
-        const currentUrl = window.location.href;
-
         // 클립보드에 복사
-        navigator.clipboard.writeText(currentUrl)
-          .then(() => {
-            const msg = document.getElementById('copied-msg');
-            msg.style.display = 'block';
-            setTimeout(() => { msg.style.display = 'none'; }, 2000); // 2초 후 숨김
-          })
-          .catch(err => {
-            alert("복사에 실패했습니다: " + err);
-          });
+        document.getElementById('share-button').addEventListener('click', function () {
+          navigator.clipboard.writeText(window.location.href)
+            .then(() => alert("주소가 복사되었습니다!"))
+            .catch(err => alert("복사 실패: " + err));
         });
+     
     </script>
   </body>
 </html>
