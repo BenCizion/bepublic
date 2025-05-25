@@ -31,6 +31,12 @@ body {
   padding: 0 20px;
 }
 
+.comment {
+ max-width: 900px;
+ margin: 0 auto;
+ padding: 0 10px;
+}
+
 .header {
   background-color: var(--bg-white);
   padding: 20px 0;
