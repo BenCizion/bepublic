@@ -123,20 +123,26 @@ body {
   line-height: 1.5;
 }
 
-.show-more {
-  color: #000000;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  margin-top: 4px;
-  gap: 4px;
-}
+.share-button {
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+  }
 
-.show-more img{
-  margin-top: 3px;
-}
+.copied-msg {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    z-index: 1000;
+  }
 
 .poll-meta-section {
   margin-bottom: 40px;
