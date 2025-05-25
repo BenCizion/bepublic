@@ -251,10 +251,10 @@
             if (navigator.clipboard && window.isSecureContext) {
                 console.log('Using navigator.clipboard');
                 navigator.clipboard.writeText(url)
-                    .then(() => showNotification('URL copied!'))
+                    .then(() => showNotification('투표 페이지 링크를 잘 복사했습니다!'))
                     .catch((err) => {
                         console.error('Clipboard error:', err);
-                        showNotification('Copy failed.', true);
+                        showNotification('투표 페이지 링크 주소를 복사하지 못했습니다. 브라우저의 공유기능을 활용해주세요!', true);
                     });
             } else {
                 console.log('Using execCommand');
@@ -266,10 +266,10 @@
                 tempInput.select();
                 try {
                     document.execCommand('copy');
-                    showNotification('URL copied!');
+                    showNotification('투표 페이지 링크를 잘 복사했습니다!');
                 } catch (err) {
                     console.error('execCommand error:', err);
-                    showNotification('Copy failed.', true);
+                    showNotification('투표 페이지 링크 주소를 복사하지 못했습니다. 브라우저의 공유기능을 활용해주세요!', true);
                 }
                 document.body.removeChild(tempInput);
             }
