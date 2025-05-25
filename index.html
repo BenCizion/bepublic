@@ -63,7 +63,9 @@
                             <span>비퍼블릭 운영팀</span>
                         </div>
                         <div class="share">
-                          <img id="share-buttonn" src="https://bencizion.github.io/bepublic/img/share.svg" style="cursor: pointer;" alt="공유하기">
+                          <button class="share-button">
+                            <img src="https://bencizion.github.io/bepublic/img/share.svg" style="cursor: pointer;" alt="공유하기">
+                          </button>
                         </div>
                     </div>
                 </div>
@@ -226,6 +228,8 @@
             </section>
         </div>
     </main>
+
+    <div class="copied-msg">주소가 복사되었습니다!</div>
   
     <script>
         // 투표 버튼 기능
@@ -236,11 +240,17 @@
         });
   
         // 클립보드에 복사
-        document.getElementById('.share-button').addEventListener('click', function () {
-          navigator.clipboard.writeText(window.location.href)
-            .then(() => alert("주소가 복사되었습니다!"))
-            .catch(err => alert("복사 실패: " + err));
-        });
+        document.querySelector('.share-button').addEventListener('click', function () {
+              navigator.clipboard.writeText(window.location.href)
+                .then(() => {
+                  const msg = document.querySelector('.copied-msg');
+                  msg.style.display = 'block';
+                  setTimeout(() => { msg.style.display = 'none'; }, 2000);
+                })
+                .catch(err => {
+                  alert("복사 실패: " + err);
+                });
+            });
      
     </script>
   </body>
