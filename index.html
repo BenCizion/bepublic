@@ -244,7 +244,7 @@
         });
 
  // 공유하기 기능 (제목 옆 이미지 및 메타 섹션 버튼)
-        console.log('Script loaded: share-url');
+        console.log('Script loaded: share');
         function shareUrl() {
             console.log('shareUrl called');
             const url = 'https://bencizion.github.io/bepublic/index.html';
@@ -273,40 +273,6 @@
                 }
                 document.body.removeChild(tempInput);
             }
-        }
-
-        function showNotification(message, isError = false) {
-            console.log('Notification:', message);
-            const notification = document.createElement('div');
-            notification.className = `copy-notification ${isError ? 'error' : ''}`;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                setTimeout(() => document.body.removeChild(notification), 300);
-            }, 2000);
-        }
-
-        const shareIcon = document.getElementById('share-url-icon');
-        console.log('Share Icon:', shareIcon);
-        if (shareIcon) {
-            shareIcon.addEventListener('click', () => {
-                console.log('Share Icon clicked');
-                shareUrl();
-            });
-        } else {
-            console.error('Share Icon not found');
-        }
-
-        const shareButton = document.getElementById('share-url-button');
-        console.log('Share Button:', shareButton);
-        if (shareButton) {
-            shareButton.addEventListener('click', () => {
-                console.log('Share Button clicked');
-                shareUrl();
-            });
-        } else {
-            console.error('Share Button not found');
         }
     </script>
   </body>
