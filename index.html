@@ -236,7 +236,7 @@
         });
   
         // 클립보드에 복사
-        document.getElementById('share-button').addEventListener('click', function () {
+        document.getElementById('.share-button').addEventListener('click', function () {
           navigator.clipboard.writeText(window.location.href)
             .then(() => alert("주소가 복사되었습니다!"))
             .catch(err => alert("복사 실패: " + err));
