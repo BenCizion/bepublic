@@ -35,7 +35,7 @@
                 <div class="poll-title">
                     <h1>대통령 임기를 단축하거나 연임을 허용하는 것에 대해 어떻게 생각하시나요?</h1>
                     <button id="copy-url-button">
-                        <img src="./img/share.svg" alt="공유 아이콘">
+                        <img id="share-url-icon" src="./img/share-icon.svg" alt="공유 아이콘">
                     </button>
                     <div class="poll-description">
                       제21대 대통령 선거가 다가옵니다! 대한민국의 미래를 결정짓는 이번 대선에서, 여러분의 한 표는 큰 변화를 만듭니다. 대선 후보를 선택할 때, 정책, 리더십, 신뢰, 경제, 외교 등 다양한 기준이 영향을 미칩니다. 이 중 당신의 마음을 움직이고, 이번 투표에서 가장 결정적인 역할을 하는 단 하나의 기준은 무엇인가요? 당신의 선택이 미래를 바꿉니다. 당신의 소중한 선택을 지금 공유해주세요! 주변에도 이 페이지를 알려서 함께 투표에 참여하세요!
@@ -243,6 +243,72 @@
         document.querySelector('.show-more').addEventListener('click', function() {
             alert('상세 설명이 여기에 표시됩니다!');
         });
+
+ // 공유하기 기능 (제목 옆 이미지 및 메타 섹션 버튼)
+        console.log('Script loaded: share-url');
+        function shareUrl() {
+            console.log('shareUrl called');
+            const url = 'https://bencizion.github.io/bepublic/index.html';
+            if (navigator.clipboard && window.isSecureContext) {
+                console.log('Using navigator.clipboard');
+                navigator.clipboard.writeText(url)
+                    .then(() => showNotification('URL copied!'))
+                    .catch((err) => {
+                        console.error('Clipboard error:', err);
+                        showNotification('Copy failed.', true);
+                    });
+            } else {
+                console.log('Using execCommand');
+                const tempInput = document.createElement('input');
+                tempInput.style.position = 'absolute';
+                tempInput.style.left = '-9999px';
+                tempInput.value = url;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try {
+                    document.execCommand('copy');
+                    showNotification('URL copied!');
+                } catch (err) {
+                    console.error('execCommand error:', err);
+                    showNotification('Copy failed.', true);
+                }
+                document.body.removeChild(tempInput);
+            }
+        }
+
+        function showNotification(message, isError = false) {
+            console.log('Notification:', message);
+            const notification = document.createElement('div');
+            notification.className = `copy-notification ${isError ? 'error' : ''}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 2000);
+        }
+
+        const shareIcon = document.getElementById('share-url-icon');
+        console.log('Share Icon:', shareIcon);
+        if (shareIcon) {
+            shareIcon.addEventListener('click', () => {
+                console.log('Share Icon clicked');
+                shareUrl();
+            });
+        } else {
+            console.error('Share Icon not found');
+        }
+
+        const shareButton = document.getElementById('share-url-button');
+        console.log('Share Button:', shareButton);
+        if (shareButton) {
+            shareButton.addEventListener('click', () => {
+                console.log('Share Button clicked');
+                shareUrl();
+            });
+        } else {
+            console.error('Share Button not found');
+        }
     </script>
   </body>
 </html>
