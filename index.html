@@ -66,7 +66,7 @@
                             <span>두바이낙타</span>
                         </div>
                         <div class="share">
-                          <img src="https://bencizion.github.io/bepublic/img/share.svg" alt="">
+                          <img id="share-btn" src="https://bencizion.github.io/bepublic/img/share.svg" alt="">
                         </div>
                     </div>
                 </div>
@@ -238,37 +238,24 @@
             });
         });
   
- // 공유하기 기능 (제목 옆 이미지 및 메타 섹션 버튼)
-        console.log('Script loaded: share');
-        function shareUrl() {
-            console.log('shareUrl called');
-            const url = 'https://bencizion.github.io/bepublic/index.html';
-            if (navigator.clipboard && window.isSecureContext) {
-                console.log('Using navigator.clipboard');
-                navigator.clipboard.writeText(url)
-                    .then(() => showNotification('투표 페이지 링크를 잘 복사했습니다!'))
-                    .catch((err) => {
-                        console.error('Clipboard error:', err);
-                        showNotification('투표 페이지 링크 주소를 복사하지 못했습니다. 브라우저의 공유기능을 활용해주세요!', true);
-                    });
-            } else {
-                console.log('Using execCommand');
-                const tempInput = document.createElement('input');
-                tempInput.style.position = 'absolute';
-                tempInput.style.left = '-9999px';
-                tempInput.value = url;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                try {
-                    document.execCommand('copy');
-                    showNotification('투표 페이지 링크를 잘 복사했습니다!');
-                } catch (err) {
-                    console.error('execCommand error:', err);
-                    showNotification('투표 페이지 링크 주소를 복사하지 못했습니다. 브라우저의 공유기능을 활용해주세요!', true);
-                }
-                document.body.removeChild(tempInput);
-            }
-        }
+        // 공유하기 기능 (제목 옆 이미지 및 메타 섹션 버튼)
+        <!-- 복사 완료 메시지 -->
+        <div id="copied-msg">📋 주소가 복사되었습니다!</div>
+
+        document.getElementById('share-btn').addEventListener('click', function () {
+        const currentUrl = window.location.href;
+
+        // 클립보드에 복사
+        navigator.clipboard.writeText(currentUrl)
+          .then(() => {
+            const msg = document.getElementById('copied-msg');
+            msg.style.display = 'block';
+            setTimeout(() => { msg.style.display = 'none'; }, 2000); // 2초 후 숨김
+          })
+          .catch(err => {
+            alert("복사에 실패했습니다: " + err);
+          });
+        });
     </script>
   </body>
 </html>
