@@ -1,0 +1,197 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비퍼블릭 - 투표2</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .navbar { background-color: #333; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .navbar a { color: white; text-decoration: none; margin: 0 15px; }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; }
+        .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; }
+        .dropdown-content a:hover { background-color: #f1f1f1; }
+        .dropdown:hover .dropdown-content { display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .poll-header { text-align: center; margin-bottom: 30px; }
+        .poll-question { font-size: 24px; font-weight: bold; }
+        .poll-description { font-size: 16px; margin-top: 10px; }
+        .poll-info { display: flex; justify-content: space-between; margin-top: 20px; }
+        .poll-info div { flex: 1; text-align: center; }
+        .vote-options { margin-top: 30px; }
+        .vote-option { border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .option-text { font-weight: bold; }
+        .vote-button { background-color: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        .vote-button:hover { background-color: #0056b3; }
+        .poll-results { margin-top: 30px; }
+        .result-item { margin-bottom: 20px; }
+        .result-item div { display: flex; justify-content: space-between; }
+        .footer { background-color: #f8f8f8; padding: 20px; text-align: center; margin-top: 40px; }
+        .footer a { color: #007bff; text-decoration: none; margin: 0 10px; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <a href="#">HOME</a>
+            <div class="dropdown">
+                <a href="#">투표목록 ▾</a>
+                <div class="dropdown-content">
+                    <a href="#">투표1</a>
+                    <a href="#">투표2</a>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a href="#">"비퍼블릭"이란?</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="poll-header">
+            <div class="poll-question"></div>
+            <div class="poll-description">
+                대선 투표 진행 후, 당신은 당신이 선택한 후보가 아닌 대통령을 맞이하게 될 수 있습니다. 투표 결과에 승복하고, 새로운 대통령의 정책과 국정을 지지할 수 있는지 응답해주세요. 당신의 소중한 선택을 지금 공유해주세요! 주변에도 이 페이지를 알려서 함께 투표에 참여하세요!
+            </div>
+            <div class="poll-info">
+                <div>
+                    <strong>집계 중입니다.</strong>
+                </div>
+                <div>
+                    <strong>2025년 5월 30일부터 6월 7일까지</strong>
+                </div>
+                <div>
+                    <strong>비퍼블릭 운영팀</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="vote-options" id="vote-options"></div>
+
+        <div class="poll-results">
+            <h2>투표 결과 그래프</h2>
+            <div id="vote-results">
+                <h3>투표 상세 결과</h3>
+                <p>(매일 업데이트 됩니다. 집계 중입니다.)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>주식회사 비퍼블릭 (BePublic. Inc) | <a href="mailto:support@bepublic.ai">support@bepublic.ai</a></p>
+        <p>
+            <a href="#">서비스 이용약관</a> | <a href="#">개인정보 처리방침</a>
+        </p>
+        <p>Copyright ⓒ 2025 BePublic: 투표를 통한 선택, 선택이 모인 데이터로 변화를 All rights reserved.</p>
+    </div>
+
+    <script>
+        async function fetchPollData() {
+            try {
+                const response = await fetch('https://stag-api.bepublic.ai/api/v1/questions/9UaqSRLYH19aiLYhxYpz/profile', {
+                    method: 'GET',
+                    headers: {
+                        'X-Origin': 'bepublic.ai',
+                        'X-Client': 'VptXb77MheUut',
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const result = await response.json();
+                const data = result.data;
+
+                // Update poll question
+                document.querySelector('.poll-question').textContent = data.text;
+
+                // Populate vote options
+                const voteOptionsContainer = document.getElementById('vote-options');
+                const voteResultsContainer = document.getElementById('vote-results');
+                const totalCount = data.total_count || 0;
+
+                voteOptionsContainer.innerHTML = '';
+                voteResultsContainer.innerHTML = '<h3>투표 상세 결과</h3><p>(매일 업데이트 됩니다. 집계 중입니다.)</p>';
+
+                data.options.forEach(option => {
+                    // Calculate percentage
+                    const percentage = totalCount > 0 ? ((option.count / totalCount) * 100).toFixed(1) : 0;
+
+                    // Create vote option
+                    const voteOption = document.createElement('div');
+                    voteOption.className = 'vote-option';
+                    voteOption.innerHTML = `
+                        <div>
+                            <div class="option-text">${option.label}</div>
+                            <span>${option.count} 명</span>
+                        </div>
+                        <button class="vote-button">투표하기</button>
+                    `;
+                    voteOptionsContainer.appendChild(voteOption);
+
+                    // Create result item
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'result-item';
+                    resultItem.innerHTML = `
+                        <div>
+                            <div>${option.label}</div>
+                            <span>${option.count} 명</span>
+                        </div>
+                        <div>${percentage}%</div>
+                        <button class="vote-button">투표하기</button>
+                    `;
+                    voteResultsContainer.appendChild(resultItem);
+                });
+            } catch (error) {
+                console.error('Error fetching poll data:', error);
+                document.getElementById('vote-options').innerHTML = '<p>투표 데이터를 불러오는 중 오류가 발생했습니다.</p>';
+            }
+        }
+
+        // Fetch data on page load
+        window.onload = fetchPollData;
+    </script>
+</body>
+</html>
