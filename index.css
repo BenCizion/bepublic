@@ -462,23 +462,23 @@ body {
 }
 
 .legend-color.blue {
-  background-color: var(--main-color);
+  background-color: #007AFF;
 }
 
 .legend-color.red {
-  background-color: var(--danger-color);
+  background-color: #FF9500;
 }
 
 .legend-color.purple {
-  background-color: var(--purple-color);
+  background-color: #FF375F;
 }
 
 .legend-color.green {
-  background-color: var(--success-color);
+  background-color: #34C759;
 }
 
 .legend-color.gray {
-  background-color: #6B7280;
+  background-color: #AF52DE;
 }
 
 .legend-text {
