@@ -486,11 +486,11 @@ body {
   color: var(--gray-text);
 }
 
-.option-indicator.blue { background-color: var(--main-color); }
-.option-indicator.red { background-color: var(--danger-color); }
-.option-indicator.purple { background-color: var(--purple-color); }
-.option-indicator.green { background-color: var(--success-color); }
-.option-indicator.gray { background-color: #D1D5DB; }
+.option-indicator.blue { background-color: #007AFF; }
+.option-indicator.red { background-color: #FF9500; }
+.option-indicator.purple { background-color: #FF375F; }
+.option-indicator.green { background-color: #34C759; }
+.option-indicator.gray { background-color: #AF52DE; }
 
 .option-content {
   flex: 1;
